@@ -2,19 +2,18 @@
 <html lang="ja">
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
 	<link rel="stylesheet" href="index.css" />
-	<title>おつかれ様でした！</title>
+	<title>メッセージ作成</title>
 </head>
 <body>
-	<div id="app2" v-cloak>
-		<pre class="husen" v-for="message in messages" v-bind:style="[message.style]">{{ message.message }}</pre>
-	</div>
+	<p><textarea id="raw" placeholder="メッセージを入力してください"></textarea></p>
+	<p><input type="button" id="encrypt" value="生成"/></p>
+	<p><textarea id="encrypted" placeholder="message.jsに貼ってください"></textarea></p>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/cryptico/0.0.1343522940/cryptico.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
-	<script src="messages.js"></script>
 	<script src="base64.js"></script>
-	<script src="index.js"></script>
+	<script src="encrypt.js"></script>
 </body>
 </html>
