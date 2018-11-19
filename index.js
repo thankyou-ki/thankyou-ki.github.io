@@ -1,15 +1,22 @@
+window.onerror = () => alert('パスフレーズが間違ってます')
+
+let r = new Random((new Date()).getTime())
 const RSAK = cryptico.generateRSAKey(location.search.replace(/^\?/, ''), 1024)
-messages = messages.sort((a, b) => Math.floor(Math.random() * 2))
+for(var k = messages.length - 1; k > 0; k--){
+    var j = r.nextInt(0, k);
+    var tmp = messages[k];
+    messages[k] = messages[j];
+    messages[j] = tmp;
+}
 let data = {"messages" : []}
 let i = 0
-let app2
-function add(){
+function add() {
     if(i < messages.length){
         let message = messages[i]
+        let left = r.nextInt(0, 800)
+        let top = r.nextInt(0, 500)
+        let decrypted = decode(cryptico.decrypt(message, RSAK).plaintext)
         setTimeout(function(){
-            let left = Math.random() * 1280 / 1.5
-            let top = Math.random() * 1024 / 1.5
-            let decrypted = decode(cryptico.decrypt(message, RSAK).plaintext)
             data.messages.push({
                 "message" : decrypted, 
                 "style" : {
@@ -19,14 +26,15 @@ function add(){
                 }
             })
             add()
-        }, 2000 + Math.random() * 5000)
+        }, r.nextInt(1000 * i, 6000))
     }
     i++
 }
-app2 = new Vue({
+let app2 = new Vue({
     el: '#app2',
     data: data,
     methods: {
     }
 })
 add()
+window.onerror = (e) => console.log(e)
