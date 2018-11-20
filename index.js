@@ -12,18 +12,19 @@ let data = {"messages" : []}
 let i = 0
 function add() {
     if(i < messages.length){
-        let message = messages[i]
+        let message = messages[i].hasOwnProperty("message") ? messages[i]["message"] : messages[i]
+        let style = messages[i].hasOwnProperty("style") ? messages[i]["style"] : {}
         let left = r.nextInt(0, 800)
         let top = r.nextInt(0, 500)
         let decrypted = decode(cryptico.decrypt(message, RSAK).plaintext)
         setTimeout(function(){
             data.messages.push({
                 "message" : decrypted, 
-                "style" : {
+                "style" : Object.assign({
                     "width": Math.max.apply(null, decrypted.split("\n").filter(b => b).map(b => b.split('').map(c => c.charCodeAt() < 256 ? 1 : 2).reduce((e,f)=>e+f))) / 2 + 5 + 'em',
                     "left": left + 'px',
                     "top": top + 'px'
-                }
+                }, style)
             })
             add()
         }, r.nextInt(1000 * i, 6000))
