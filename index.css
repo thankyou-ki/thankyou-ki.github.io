@@ -11,7 +11,7 @@
     margin: 1em;
     border: solid 1px black;
     background-color: #ffff81;
-    position: absolute;
+    position: relative;
     font-family: "ＭＳ ゴシック",sans-serif;
 }
 .husen:hover{
