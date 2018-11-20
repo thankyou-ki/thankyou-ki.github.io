@@ -11,8 +11,11 @@
     margin: 1em;
     border: solid 1px black;
     background-color: #ffff81;
-    position: relative;
+    position: absolute;
     font-family: "ＭＳ ゴシック",sans-serif;
+}
+.husen:hover{
+    z-index: 10;
 }
 
 textarea {

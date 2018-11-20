@@ -10,12 +10,22 @@ for(var k = messages.length - 1; k > 0; k--){
 }
 let data = {"messages" : []}
 let i = 0
+let boxes = [];
+let n = 5;
+let width = 200;
+for(let i = 0; i < n;i++){
+    for(let j = 0; j < n;j++){
+        boxes.push([i*width,j*width]);
+    }
+}
+boxes = boxes.sort(function() { return Math.random() - 0.5; }).sort(function() { return Math.random() - 0.5; });
 function add() {
     if(i < messages.length){
         let message = messages[i].hasOwnProperty("message") ? messages[i]["message"] : messages[i]
         let style = messages[i].hasOwnProperty("style") ? messages[i]["style"] : {}
-        let left = r.nextInt(0, 800)
-        let top = r.nextInt(0, 500)
+        let box = boxes.pop();
+        let left = r.nextInt(0, 50)+box[0];
+        let top = r.nextInt(0, 50)+box[1];
         let decrypted = decode(cryptico.decrypt(message, RSAK).plaintext)
         setTimeout(function(){
             data.messages.push({
