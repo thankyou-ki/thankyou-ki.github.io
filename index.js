@@ -13,6 +13,7 @@ let i = 0
 let boxes = [];
 let n = 5;
 let width = 200;
+let zIndex = 0;
 for(let i = 0; i < n;i++){
     for(let j = 0; j < n;j++){
         boxes.push([i*width,j*width]);
@@ -30,10 +31,13 @@ function add() {
         setTimeout(function(){
             data.messages.push({
                 "message" : decrypted, 
+                "left": left,
+                "top": top,
                 "style" : Object.assign({
                     "width": Math.max.apply(null, decrypted.split("\n").filter(b => b).map(b => b.split('').map(c => c.charCodeAt() < 256 ? 1 : 2).reduce((e,f)=>e+f))) / 2 + 5 + 'em',
-                    "left": left + 'px',
-                    "top": top + 'px'
+                    "left": left + "px",
+                    "top": top + "px",
+                    "z-index": ++zIndex
                 }, style)
             })
             add()
@@ -46,6 +50,29 @@ let app2 = new Vue({
     el: '#app2',
     data: data,
     methods: {
+        mousedown(message, event) {
+            event.preventDefault()
+            if(!this.drag) {
+                this.drag = true
+                this.message = message
+                this.event = event
+                message.style["z-index"] = ++zIndex
+            }
+        },
+        mousemove(message, event) {
+            event.preventDefault()
+            if(this.drag) {
+                this.message["left"] -= this.event.screenX - event.screenX
+                this.message["top"] -= this.event.screenY - event.screenY
+                this.message.style["left"] = this.message["left"] + "px"
+                this.message.style["top"] = this.message["top"] + "px"
+                this.event = event
+            }
+        },
+        mouseup(message, event) {
+            event.preventDefault()
+            this.drag = false
+        }                   
     }
 })
 window.onerror = (e) => console.log(e)
