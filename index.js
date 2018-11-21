@@ -62,8 +62,8 @@ let app2 = new Vue({
         mousemove(message, event) {
             event.preventDefault()
             if(this.drag) {
-                this.message["left"] -= this.event.screenX - event.screenX
-                this.message["top"] -= this.event.screenY - event.screenY
+                this.message["left"] -= getEvent(this.event).clientX - getEvent(event).clientX
+                this.message["top"] -= getEvent(this.event).clientY - getEvent(event).clientY
                 this.message.style["left"] = this.message["left"] + "px"
                 this.message.style["top"] = this.message["top"] + "px"
                 this.event = event
@@ -76,3 +76,7 @@ let app2 = new Vue({
     }
 })
 window.onerror = (e) => console.log(e)
+
+function getEvent(event) {
+    return event.touches ? event.touches[0] : event
+}

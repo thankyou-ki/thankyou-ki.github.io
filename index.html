@@ -14,6 +14,9 @@
 			@mousedown="mousedown(message, $event)" 
 			@mousemove="mousemove(message, $event)"
 			@mouseup="mouseup(message, $event)"
+			@touchstart="mousedown(message, $event)" 
+			@touchmove="mousemove(message, $event)"
+			@touchend="mouseup(message, $event)"
 		>{{ message.message }}</pre>
 	</div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/cryptico/0.0.1343522940/cryptico.js"></script>
