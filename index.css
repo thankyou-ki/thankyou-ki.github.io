@@ -15,9 +15,6 @@
     position: absolute;
     font-family: "ＭＳ ゴシック",sans-serif;
 }
-.husen:hover{
-    z-index: 10;
-}
 
 textarea {
     width: 60em;
